@@ -1,13 +1,15 @@
-#ifndef __sound_decoder_h__
-#define __sound_decoder_h__
+#ifndef __audio_decoder_h__
+#define __audio_decoder_h__
 
-struct sound_resource;
-struct sound_decoder_ops {
+#include "openal/al.h"
+
+struct audio_resource;
+struct audio_decoder_ops {
     int  (*init)();
     void (*fini)();
-    int  (*decode)(struct sound_resource *res);
+    int  (*decode)(struct audio_resource *res, ALuint *buffer);
 };
 
-extern struct sound_decoder_ops g_sound_decoders *[];
+extern const struct audio_decoder_ops * g_audio_decoders[];
 
 #endif

@@ -1,0 +1,32 @@
+laudio=/Users/wale/laudio CD=. filter="*" {
+ Makefile
+ README.md
+ src=src {
+  audio_decoder.c
+  laudio.c
+  audio_decoder.h
+  audio_resource.h
+ }
+ lib=lib {
+  audio.lua
+ }
+ dep=dep {
+  openal=openal {
+   al.h
+   alc.h
+   alext.h
+   efx-creative.h
+   efx-presets.h
+   efx.h
+  }
+  alut=alut {
+   alut.h
+  }
+  mpg123=mpg123 {
+   mpg123.h
+  }
+ }
+ test=test {
+  test.lua
+ }
+}

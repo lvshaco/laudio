@@ -1,11 +1,12 @@
-#ifndef __sound_resource_h__
-#define __sound_resource_h__
+#ifndef __audio_resource_h__
+#define __audio_resource_h__
 
-#define SOUND_RESOURCE_TFILE 1
-#define SOUND_RESOURCE_TBUFFER 2
+#include <stdio.h>
 
-struct sound_resource {
-    const char *name;
+#define AUDIO_RESOURCE_TFILE 1
+#define AUDIO_RESOURCE_TBUFFER 2
+
+struct audio_resource {
     int type;
     union {
         struct {
