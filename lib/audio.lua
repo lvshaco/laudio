@@ -5,8 +5,36 @@ audio.init = assert(c.init)
 
 local __pool = {}
 
+local method = c.method
+local get = c.get
+local set = c.set
+
+local audiodata_meta = {
+    __index = function(a, key)
+        local m = method[key]
+        if m then
+            return m
+        end
+        local getter = get[key]
+        if getter then
+            return getter(a)
+        end
+        print("Unsupport audiodata get "..key)
+        return nil
+    end,
+    __newindex = function(a, key, value)
+        local setter = set[key]
+        if setter then
+            setter(a, value)
+            return
+        end
+        print("Unsupport audiodata set "..key)
+    end,
+}
+
 function audio.load(name)
     local a = assert(c.load(name))
+    debug.setmetatable(a, audiodata_meta)
     __pool[name] = a
     return a
 end

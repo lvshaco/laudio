@@ -4,14 +4,14 @@
 #include <stdio.h>
 
 #define AUDIO_RESOURCE_TFILE 1
-#define AUDIO_RESOURCE_TBUFFER 2
+#define AUDIO_RESOURCE_TFILEHANDLE 2
+#define AUDIO_RESOURCE_TBUFFER 3
 
 struct audio_resource {
     int type;
     union {
-        struct {
-            FILE *fp;
-        };
+        const char *name;
+        FILE *fp;
         struct {
             void *buffer;
             size_t sz;

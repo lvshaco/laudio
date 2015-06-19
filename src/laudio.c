@@ -1,14 +1,14 @@
 #include "audio_resource.h"
 #include "audio_decoder.h"
+#include "audio_error.h"
 #include "openal/al.h"
 #include "openal/alc.h"
 #include "alut/alut.h"
-
+#include <assert.h>
 #include <lua.h>
 #include <lauxlib.h>
 
 #define METAAUDIO  "AUDIO*"
-#define METAAUDIOD "AUDIOD*"
 
 struct audio_data {
     ALuint source;
@@ -19,45 +19,26 @@ struct audio_data {
     float gain;
 };
 
-static int 
-checkalerr(const char *tag) {
-    int err = alGetError();
-    if (err != AL_NO_ERROR) {
-        switch (err) {
-            case AL_INVALID_NAME:
-                fprintf(stderr, "AL_INVALID_NAME in %s\n", tag);
-                break;
-            case AL_INVALID_ENUM:
-                fprintf(stderr, "AL_INVALID_ENUM in %s\n", tag);
-                break;
-            case AL_INVALID_VALUE:
-                fprintf(stderr, "AL_INVALID_VALUE in %s\n", tag);
-                break;
-            case AL_INVALID_OPERATION:
-                fprintf(stderr, "AL_INVALID_OPERATION in %s\n", tag);
-                break;
-            case AL_OUT_OF_MEMORY:
-                fprintf(stderr, "AL_OUT_OF_MEMORY in %s\n", tag);
-                break;
-        }
-    }
-    return err;
-}
-
 static int
 linit(lua_State *L) {
-    alutInit(0, 0);
+    if (alutInit(0, 0) == AL_FALSE) {
+        lua_pushnil(L);
+        lua_pushstring(L,alutGetErrorString(alutGetError())); 
+        return 2;
+    }
+
     const struct audio_decoder_ops *ops;
-    for (ops = *g_audio_decoders; ops != NULL; ops++) {
+    for (ops = g_audio_decoders; ops->init != NULL; ops++) {
         ops->init();
     }
-    return 0;
+    lua_pushboolean(L,1);
+    return 1;
 }
 
 static int
 lfini(lua_State *L) {
     const struct audio_decoder_ops *ops;
-    for (ops = *g_audio_decoders; ops != NULL; ops++) {
+    for (ops = g_audio_decoders; ops->fini != NULL; ops++) {
         ops->fini();
     }
     alutExit();
@@ -78,19 +59,21 @@ lload(lua_State *L) {
 
     struct audio_resource res;
     res.type = AUDIO_RESOURCE_TFILE;
-    res.fp = fopen(name, "rb");
-    if (!res.fp) {
-        lua_pushnil(L);
-        lua_pushfstring(L, "Can not read audio file: %s", name);
-        return 2;
-    }
+    res.name = name;
+
+    //res.fp = fopen(name, "rb");
+    //if (!res.fp) {
+        //lua_pushnil(L);
+        //lua_pushfstring(L, "Can not read audio file: %s", name);
+        //return 2;
+    //}
 
     ALuint buffer = AL_NONE;
     ALuint source = AL_NONE;
 
     int succeed = 0;
     const struct audio_decoder_ops *ops;
-    for (ops = *g_audio_decoders; ops != NULL; ops++) {
+    for (ops = g_audio_decoders; ops->decode != NULL; ops++) {
         if (ops->decode(&res, &buffer) == 0) {
             succeed = 1;
             break;
@@ -104,8 +87,9 @@ lload(lua_State *L) {
     }
 
     alGenSources(1, &source);
-
-    if (checkalerr("alGenSources") != AL_NO_ERROR) {
+    int err;
+    __alcheckerrorret(err);
+    if (err != AL_NO_ERROR) {
         alDeleteBuffers(1, &buffer);
         lua_pushnil(L);
         lua_pushliteral(L, "alGenSources error");
@@ -113,7 +97,8 @@ lload(lua_State *L) {
     }
 
     alSourcei(source, AL_BUFFER, buffer);
-   
+    __alcheckerror();
+
     struct audio_data *a = lua_newuserdata(L, sizeof(struct audio_data));
     a->source = source;
     a->buffer = buffer;
@@ -121,7 +106,6 @@ lload(lua_State *L) {
     a->pitch = 1.0f;
     a->pan = 0.0f;
     a->gain = 1.0f;
-    luaL_setmetatable(L,METAAUDIOD);
     return 1;
 }
 
@@ -129,13 +113,13 @@ static int
 lunload(lua_State *L) {
     struct audio_data *a = toaudiodata(L);
     alSourceStop(a->source);
-    checkalerr("stop");
+    __alcheckerror();
     
     alDeleteSources(1, &a->source);
-    checkalerr("delete source");
+    __alcheckerror();
 
     alDeleteBuffers(1, &a->buffer);
-    checkalerr("delete buffer");
+    __alcheckerror();
     return 0;
 }
 
@@ -153,7 +137,7 @@ lplay(lua_State *L) {
     float pos[] = {a->pan, 0.0f, 0.0f};//Set position - just using left and right panning
     alSourcefv(a->source, AL_POSITION, pos);
     alSourcePlay(a->source);
-    checkalerr("play");
+    __alcheckerror();
     return 0;
 }
 
@@ -161,7 +145,7 @@ static int
 lstop(lua_State *L) {
     struct audio_data *a = toaudiodata(L);
     alSourceStop(a->source);
-    checkalerr("stop");
+    __alcheckerror();
     return 0;
 }
 
@@ -172,7 +156,7 @@ lpause(lua_State *L) {
     alGetSourcei(a->source, AL_SOURCE_STATE, &state);
     if (state == AL_PLAYING)
         alSourcePause(a->source);
-    checkalerr("pause");
+    __alcheckerror();
     return 0;
 }
 
@@ -183,7 +167,7 @@ lresume(lua_State *L) {
     alGetSourcei(a->source, AL_SOURCE_STATE, &state);
     if (state == AL_PAUSED)
         alSourcePlay(a->source);
-    checkalerr("resume");
+    __alcheckerror();
     return 0;
 }
 
@@ -199,7 +183,7 @@ lrewind(lua_State *L) {
         alSourcePlay(a->source);
         alSourcePause(a->source);
     }
-    checkalerr("rewind");
+    __alcheckerror();
     return 0;
 }
 
@@ -234,65 +218,67 @@ lgetgain(lua_State *L) {
 static int
 lsetloop(lua_State *L) {
     struct audio_data *a = toaudiodata(L);
-    a->loop = lua_toboolean(L,1);
+    a->loop = lua_toboolean(L, 2);
     return 0;
 }
 
 static int
 lsetpan(lua_State *L) {
     struct audio_data *a = toaudiodata(L);
-    a->pan = luaL_checknumber(L, 1);
+    a->pan = luaL_checknumber(L, 2);
     return 0;
 }
 
 static int
 lsetpitch(lua_State *L) {
     struct audio_data *a = toaudiodata(L);
-    a->pitch = luaL_checknumber(L, 1);
+    a->pitch = luaL_checknumber(L, 2);
     return 0;
 }
 
 static int
 lsetgain(lua_State *L) {
     struct audio_data *a = toaudiodata(L);
-    a->gain = luaL_checknumber(L, 1);
+    a->gain = luaL_checknumber(L, 2);
     return 0;
 }
 
 static void
-createmeta_audiodata(lua_State *L) {
-    luaL_Reg lmethod[] = {
-        {"unload",  lunload},
-        {"play",    lplay},
-        {"stop",    lstop},
-        {"pause",   lpause},
-        {"resume",  lresume},
-        {"rewind",  lrewind},
-
-        {"loop",    lgetloop},
-        {"pan",     lgetpan},
-        {"gain",    lgetgain},
-        {"pitch",   lgetpitch},
-        {NULL, NULL},
-    };
-
-    luaL_Reg lsetter[] = {
+lsetter(lua_State *L) {
+    luaL_Reg l[] = {
         {"loop",    lsetloop},
         {"pan",     lsetpan},
         {"gain",    lsetgain},
         {"pitch",   lsetpitch},
         {NULL, NULL},
     };
+    luaL_newlib(L,l);
+}
 
-    luaL_newmetatable(L, METAAUDIOD);
+static void
+lgetter(lua_State *L) {
+    luaL_Reg l[] = {
+        {"loop",    lgetloop},
+        {"pan",     lgetpan},
+        {"gain",    lgetgain},
+        {"pitch",   lgetpitch},
+        {NULL, NULL},
+    };
+    luaL_newlib(L,l);
+}
 
-    luaL_newlib(L, lmethod);
-    lua_setfield(L, -2, "__index");
-
-    luaL_newlib(L, lsetter);
-    lua_setfield(L, -2, "__newindex");
-   
-    lua_pop(L, 1);
+static void
+lmethod(lua_State *L) {
+    luaL_Reg l[] = {
+        {"unload",  lunload},
+        {"play",    lplay},
+        {"stop",    lstop},
+        {"pause",   lpause},
+        {"resume",  lresume},
+        {"rewind",  lrewind},
+        {NULL, NULL},
+    };
+    luaL_newlib(L,l);
 }
 
 int 
@@ -308,6 +294,11 @@ luaopen_audio_c(lua_State *L) {
     lua_setfield(L, -2, "__gc");
     lua_setmetatable(L, -1);
 
-    createmeta_audiodata(L);
+    lmethod(L);
+    lua_setfield(L, -2, "method");
+    lgetter(L);
+    lua_setfield(L, -2, "get");
+    lsetter(L);
+    lua_setfield(L, -2, "set");
     return 1;
 }

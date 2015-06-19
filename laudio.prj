@@ -4,6 +4,7 @@ laudio=/Users/wale/laudio CD=. filter="*" {
  src=src {
   audio_decoder.c
   laudio.c
+  audio_error.h
   audio_decoder.h
   audio_resource.h
  }

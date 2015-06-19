@@ -22,7 +22,7 @@ macosx: SHARED := -fPIC -dynamiclib -Wl,-undefined,dynamic_lookup
 macosx: audio.so
 
 audio.so: src/laudio.c src/audio_decoder.c
-	gcc $(CFLAGS) $(SHARED) -o $@ $^ -Isrc -I/usr/local/include -Idep -lopenal -lalut -lmpg123 #-llua
+	gcc $(CFLAGS) $(SHARED) -o $@ $^ -Isrc -I/usr/local/include -Idep -lalut -lmpg123 #-llua
 
 clean:
-	rm -f audio.so
+	rm -rf audio.so audio.so.*

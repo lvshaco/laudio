@@ -10,6 +10,6 @@ struct audio_decoder_ops {
     int  (*decode)(struct audio_resource *res, ALuint *buffer);
 };
 
-extern const struct audio_decoder_ops * g_audio_decoders[];
+extern const struct audio_decoder_ops g_audio_decoders[];
 
 #endif
