@@ -1,17 +1,777 @@
 laudio=/Users/wale/laudio CD=. filter="*" {
  Makefile
  README.md
- src=src {
-  audio_decoder.c
-  laudio.c
-  audio_error.h
-  audio_decoder.h
-  audio_resource.h
- }
- lib=lib {
-  audio.lua
- }
  dep=dep {
+  alut=alut {
+   AUTHORS
+   CMakeLists.txt
+   COPYING
+   ChangeLog
+   INSTALL
+   Makefile.am
+   Makefile.in
+   NEWS
+   README
+   aclocal.m4
+   autogen.sh
+   config.h.in
+   configure
+   configure.ac
+   admin=admin {
+    Makefile.am
+    Makefile.in
+    CMakeModules=CMakeModules {
+     FindCompilerAttribute.cmake
+     FindCompilerFlagsSet.cmake
+     FindCompilerVisibility.cmake
+     FindConfigHelper.cmake
+     FindSleepFunction.cmake
+    }
+    RPM=RPM {
+     freealut.spec
+     freealut.spec.in
+    }
+    VisualStudio6=VisualStudio6 {
+     alut.dsw
+     alut=alut {
+      alut.dsp
+     }
+     hello_world=hello_world {
+      hello_world.dsp
+     }
+     playfile=playfile {
+      playfile.dsp
+     }
+    }
+    VisualStudioDotNET=VisualStudioDotNET {
+     alut.sln
+     alut=alut {
+      alut.vcproj
+     }
+     hello_world=hello_world {
+      hello_world.vcproj
+     }
+     playfile=playfile {
+      playfile.vcproj
+     }
+    }
+    autotools=autotools {
+     compile
+     config.guess
+     config.sub
+     depcomp
+     install-sh
+     ltmain.sh
+     missing
+     m4=m4 {
+      alut_c__attribute.m4
+      alut_check_cflags_wall.m4
+      alut_check_flag.m4
+      alut_check_func.m4
+      alut_eval_stderr.m4
+     }
+    }
+    pkgconfig=pkgconfig {
+     Makefile.am
+     Makefile.in
+     freealut-config.in
+     freealut.pc.in
+    }
+   }
+   doc=doc {
+    alut.css
+    alut.html
+   }
+   examples=examples {
+    Makefile.am
+    Makefile.in
+    hello_world.c
+    playfile.c
+   }
+   include=include {
+    Makefile.am
+    Makefile.in
+    AL=AL {
+     alut.h
+    }
+   }
+   src=src {
+    Makefile.am
+    Makefile.in
+    README
+    alutBufferData.c
+    alutCodec.c
+    alutError.c
+    alutInit.c
+    alutInputStream.c
+    alutLoader.c
+    alutOutputStream.c
+    alutUtil.c
+    alutVersion.c
+    alutWaveform.c
+    helloworld.wav
+    alutInternal.h
+   }
+   test_suite=test_suite {
+    Makefile.am
+    Makefile.in
+    README
+    file1.wav
+    file2.au
+    file3.raw
+    test_errorstuff.c
+    test_fileloader.c
+    test_memoryloader.c
+    test_retrostuff.c
+    test_version.c
+    test_waveforms.c
+   }
+  }
+  mpg123=mpg123 {
+   AUTHORS
+   COPYING
+   ChangeLog
+   INSTALL
+   Makefile
+   Makefile.am
+   Makefile.in
+   NEWS
+   NEWS.libmpg123
+   README
+   TODO
+   aclocal.m4
+   config.log
+   config.status
+   configure
+   configure.ac
+   equalize.dat
+   libmpg123.pc
+   libmpg123.pc.in
+   libtool
+   makedll.sh
+   mpg123.spec
+   mpg123.spec.in
+   windows-builds.sh
+   build=build {
+    compile
+    config.guess
+    config.sub
+    depcomp
+    install-sh
+    ltmain.sh
+    missing
+   }
+   doc=doc {
+    ACCURACY
+    BENCHMARKING
+    BUGS
+    CONTACT
+    LARGEFILE
+    LICENSE
+    Makefile
+    Makefile.am
+    Makefile.in
+    PATENTS
+    README.3DNOW
+    README.gain
+    README.remote
+    ROAD_TO_LGPL
+    THANKS
+    TODO
+    doxy_examples.c
+    doxygen.conf
+    doxyhead.xhtml
+    libmpg123_speed.txt
+    examples=examples {
+     Makefile
+     dump_seekindex.c
+     extract_frames.c
+     feedseek.c
+     id3dump.c
+     mpg123_to_wav.c
+     mpglib.c
+     scan.c
+    }
+   }
+   m4=m4 {
+    addrconfig.m4
+    libtool.m4
+    ltoptions.m4
+    ltsugar.m4
+    ltversion.m4
+    lt~obsolete.m4
+   }
+   man1=man1 {
+    mpg123.1
+    out123.1
+   }
+   ports=ports {
+    README
+    mpg123_.pas
+    MSVC++=MSVC++ {
+     msvc.c
+     config.h
+     mpg123.h
+     2005=2005 {
+      libmpg123=libmpg123 {
+       libmpg123.vcproj
+      }
+     }
+     2008=2008 {
+      mpg123.sln
+      dump_seekindex=dump_seekindex {
+       dump_seekindex.vcproj
+      }
+      feedseek=feedseek {
+       feedseek.vcproj
+      }
+      libmpg123=libmpg123 {
+       libmpg123.vcproj
+      }
+      mpglib=mpglib {
+       mpglib.vcproj
+      }
+      scan=scan {
+       scan.vcproj
+      }
+     }
+     2008clr=2008clr {
+      2008clr.sln
+      examples=examples {
+       ReplaceReaderclr=ReplaceReaderclr {
+        Program.cs
+        ReplaceReaderclr.csproj
+        Properties=Properties {
+         AssemblyInfo.cs
+        }
+       }
+       feedseekclr=feedseekclr {
+        Program.cs
+        feedseekclr.csproj
+        Properties=Properties {
+         AssemblyInfo.cs
+        }
+       }
+       scanclr=scanclr {
+        Program.cs
+        scanclr.csproj
+        Properties=Properties {
+         AssemblyInfo.cs
+        }
+       }
+      }
+      mpg123clr=mpg123clr {
+       AssemblyInfo.cpp
+       ReadMe.txt
+       advanced.cpp
+       dllmain.cpp
+       error.cpp
+       id3v1.cpp
+       id3v2.cpp
+       mpg123clr.cpp
+       mpg123clr.rc
+       mpg123clr.vcproj
+       stdafx.cpp
+       string.cpp
+       text.cpp
+       advanced.h
+       enum.h
+       error.h
+       id3v1.h
+       id3v2.h
+       mpg123clr.h
+       resource.h
+       stdafx.h
+       string.h
+       targetver.h
+       text.h
+      }
+     }
+     2010=2010 {
+      mpg123.sln
+      dump_seekindex=dump_seekindex {
+       dump_seekindex.vcxproj
+       dump_seekindex.vcxproj.filters
+      }
+      feedseek=feedseek {
+       feedseek.vcxproj
+       feedseek.vcxproj.filters
+      }
+      libmpg123=libmpg123 {
+       libmpg123.vcxproj
+      }
+      scan=scan {
+       scan.vcxproj
+       scan.vcxproj.filters
+      }
+     }
+     CMP3Stream=CMP3Stream {
+      README
+      INCLUDE=INCLUDE {
+       IIEP_Def.H
+       IIEP_FileIn.H
+       CORE=CORE {
+        CORE_FileIn.H
+        SourceFilter_MP3.H
+       }
+      }
+      SOURCE=SOURCE {
+       CORE_FileIn.CPP
+       CORE_Log.CPP
+       CORE_Mutex.CPP
+       SourceFilter_MP3Stream.CPP
+      }
+      libMPG123=libMPG123 {
+       PLACE_LIBMPG123_SOURCES_HERE
+       libMPG123.vcproj
+      }
+     }
+     examples=examples {
+      feedseek.c
+      scan.c
+     }
+    }
+    Sony_PSP=Sony_PSP {
+     Makefile.psp
+     README
+     readers.c.patch
+     config.h
+    }
+    Xcode=Xcode {
+     config.h
+     mpg123.h
+     mpg123.xcodeproj=mpg123.xcodeproj {
+      project.pbxproj
+     }
+    }
+   }
+   scripts=scripts {
+    benchmark-cpu.pl
+    conplay
+    mpg123info
+    tag_lyrics.py
+   }
+   src=src {
+    Makefile
+    Makefile.am
+    Makefile.in
+    audio.c
+    buffer.c
+    common.c
+    config.h.in
+    control_generic.c
+    equalizer.c
+    genre.c
+    getlopt.c
+    httpget.c
+    legacy_module.c
+    local.c
+    metaprint.c
+    module.c
+    mpg123-id3dump.c
+    mpg123-strip.c
+    mpg123-with-modules
+    mpg123.c
+    out123-with-modules
+    out123.c
+    playlist.c
+    resolver.c
+    sfifo.c
+    stamp-h1
+    streamdump.c
+    sysutil.c
+    term.c
+    wav.c
+    win32_net.c
+    win32_support.c
+    xfermem.c
+    audio.h
+    buffer.h
+    common.h
+    config.h
+    genre.h
+    getlopt.h
+    httpget.h
+    local.h
+    metaprint.h
+    module.h
+    mpg123app.h
+    playlist.h
+    resolver.h
+    sfifo.h
+    streamdump.h
+    sysutil.h
+    term.h
+    wavhead.h
+    win32_support.h
+    xfermem.h
+    libmpg123=libmpg123 {
+     Makefile
+     Makefile.am
+     Makefile.in
+     check_neon.S
+     compat.c
+     dct36_3dnow.S
+     dct36_3dnowext.S
+     dct36_avx.S
+     dct36_neon.S
+     dct36_neon64.S
+     dct36_sse.S
+     dct36_x86_64.S
+     dct64.c
+     dct64_3dnow.S
+     dct64_3dnowext.S
+     dct64_altivec.c
+     dct64_avx.S
+     dct64_avx_float.S
+     dct64_i386.c
+     dct64_i486.c
+     dct64_mmx.S
+     dct64_neon.S
+     dct64_neon64.S
+     dct64_neon64_float.S
+     dct64_neon_float.S
+     dct64_sse.S
+     dct64_sse_float.S
+     dct64_x86_64.S
+     dct64_x86_64_float.S
+     dither.c
+     equalizer.c
+     equalizer_3dnow.S
+     feature.c
+     format.c
+     frame.c
+     getcpuflags.S
+     getcpuflags_arm.c
+     getcpuflags_x86_64.S
+     icy.c
+     icy2utf8.c
+     id3.c
+     index.c
+     layer1.c
+     layer2.c
+     layer3.c
+     lfs_alias.c
+     lfs_wrap.c
+     libmpg123.c
+     mpg123.h.in
+     ntom.c
+     optimize.c
+     parse.c
+     readers.c
+     stringbuf.c
+     synth.c
+     synth_3dnow.S
+     synth_3dnowext.S
+     synth_8bit.c
+     synth_altivec.c
+     synth_arm.S
+     synth_arm_accurate.S
+     synth_i486.c
+     synth_i586.S
+     synth_i586_dither.S
+     synth_mmx.S
+     synth_neon.S
+     synth_neon64.S
+     synth_neon64_accurate.S
+     synth_neon64_float.S
+     synth_neon64_s32.S
+     synth_neon_accurate.S
+     synth_neon_float.S
+     synth_neon_s32.S
+     synth_real.c
+     synth_s32.c
+     synth_sse.S
+     synth_sse_accurate.S
+     synth_sse_float.S
+     synth_sse_s32.S
+     synth_stereo_avx.S
+     synth_stereo_avx_accurate.S
+     synth_stereo_avx_float.S
+     synth_stereo_avx_s32.S
+     synth_stereo_neon.S
+     synth_stereo_neon64.S
+     synth_stereo_neon64_accurate.S
+     synth_stereo_neon64_float.S
+     synth_stereo_neon64_s32.S
+     synth_stereo_neon_accurate.S
+     synth_stereo_neon_float.S
+     synth_stereo_neon_s32.S
+     synth_stereo_sse_accurate.S
+     synth_stereo_sse_float.S
+     synth_stereo_sse_s32.S
+     synth_stereo_x86_64.S
+     synth_stereo_x86_64_accurate.S
+     synth_stereo_x86_64_float.S
+     synth_stereo_x86_64_s32.S
+     synth_x86_64.S
+     synth_x86_64_accurate.S
+     synth_x86_64_float.S
+     synth_x86_64_s32.S
+     tabinit.c
+     tabinit_mmx.S
+     testcpu.c
+     abi_align.h
+     compat.h
+     debug.h
+     decode.h
+     dither.h
+     frame.h
+     gapless.h
+     getbits.h
+     getcpuflags.h
+     huffman.h
+     icy.h
+     icy2utf8.h
+     id3.h
+     index.h
+     intsym.h
+     l12_integer_tables.h
+     l2tables.h
+     l3_integer_tables.h
+     mangle.h
+     mpeghead.h
+     mpg123.h
+     mpg123lib_intern.h
+     newhuffman.h
+     optimize.h
+     parse.h
+     reader.h
+     sample.h
+     synth.h
+     synth_8bit.h
+     synth_mono.h
+     synth_ntom.h
+     synth_sse3d.h
+     synths.h
+     true.h
+    }
+    output=output {
+     Makefile
+     Makefile.am
+     Makefile.in
+     aix.c
+     alib.c
+     alsa.c
+     arts.c
+     coreaudio.c
+     dummy.c
+     esd.c
+     hp.c
+     jack.c
+     mint.c
+     nas.c
+     openal.c
+     os2.c
+     oss.c
+     portaudio.c
+     pulse.c
+     qsa.c
+     sdl.c
+     sgi.c
+     sndio.c
+     sun.c
+     tinyalsa.c
+     win32.c
+     win32_wasapi.c
+    }
+    tests=tests {
+     noise.c
+     plain_id3.c
+     seek_whence.c
+     text.c
+     testtext.h
+    }
+   }
+  }
+  openal=openal {
+   CMakeLists.txt
+   COPYING
+   ChangeLog
+   README
+   XCompile.txt
+   alsoftrc.sample
+   config.h.in
+   env-vars.txt
+   hrtf.txt
+   openal.pc.in
+   Alc=Alc {
+    ALc.c
+    ALu.c
+    alcConfig.c
+    alcRing.c
+    bs2b.c
+    helpers.c
+    hrtf.c
+    mixer.c
+    mixer_c.c
+    mixer_inc.c
+    mixer_neon.c
+    mixer_sse.c
+    mixer_sse2.c
+    mixer_sse41.c
+    panning.c
+    alstring.h
+    compat.h
+    evtqueue.h
+    hrtf.h
+    mixer_defs.h
+    vector.h
+    backends=backends {
+     alsa.c
+     base.c
+     coreaudio.c
+     dsound.c
+     loopback.c
+     mmdevapi.c
+     null.c
+     opensl.c
+     oss.c
+     portaudio.c
+     pulseaudio.c
+     qsa.c
+     sndio.c
+     solaris.c
+     wave.c
+     winmm.c
+     base.h
+    }
+    effects=effects {
+     autowah.c
+     chorus.c
+     compressor.c
+     dedicated.c
+     distortion.c
+     echo.c
+     equalizer.c
+     flanger.c
+     modulator.c
+     null.c
+     reverb.c
+    }
+    midi=midi {
+     base.c
+     dummy.c
+     fluidsynth.c
+     sf2load.c
+     soft.c
+     base.h
+    }
+   }
+   OpenAL32=OpenAL32 {
+    alAuxEffectSlot.c
+    alBuffer.c
+    alEffect.c
+    alError.c
+    alExtension.c
+    alFilter.c
+    alFontsound.c
+    alListener.c
+    alMidi.c
+    alPreset.c
+    alSoundfont.c
+    alSource.c
+    alState.c
+    alThunk.c
+    sample_cvt.c
+    Include=Include {
+     alAuxEffectSlot.h
+     alBuffer.h
+     alEffect.h
+     alError.h
+     alFilter.h
+     alListener.h
+     alMain.h
+     alMidi.h
+     alSource.h
+     alThunk.h
+     alu.h
+     bs2b.h
+     sample_cvt.h
+    }
+   }
+   build=build {
+   }
+   cmake=cmake {
+    CheckFileOffsetBits.c
+    CheckFileOffsetBits.cmake
+    CheckSharedFunctionExists.cmake
+    FindALSA.cmake
+    FindAudioIO.cmake
+    FindDSound.cmake
+    FindFFmpeg.cmake
+    FindFluidSynth.cmake
+    FindOSS.cmake
+    FindPortAudio.cmake
+    FindPulseAudio.cmake
+    FindQSA.cmake
+    FindSDL2.cmake
+    FindSDL_sound.cmake
+    FindSoundIO.cmake
+   }
+   common=common {
+    atomic.c
+    rwlock.c
+    threads.c
+    uintmap.c
+   }
+   examples=examples {
+    alffplay.c
+    allatency.c
+    alloopback.c
+    alreverb.c
+    alstream.c
+    common=common {
+     alhelpers.c
+     sdl_sound.c
+     alhelpers.h
+     sdl_sound.h
+    }
+   }
+   hrtf=hrtf {
+    default-44100.mhr
+    default-48000.mhr
+   }
+   include=include {
+    align.h
+    atomic.h
+    bool.h
+    rwlock.h
+    static_assert.h
+    threads.h
+    uintmap.h
+    AL=AL {
+     al.h
+     alc.h
+     alext.h
+     efx-creative.h
+     efx-presets.h
+     efx.h
+    }
+   }
+   utils=utils {
+    CIAIR.def
+    IRC_1005.def
+    MIT_KEMAR.def
+    makehrtf.c
+    openal-info.c
+    alsoft-config=alsoft-config {
+     CMakeLists.txt
+     main.cpp
+     mainwindow.cpp
+     mainwindow.ui
+     mainwindow.h
+    }
+   }
+  }
+ }
+ depinc=depinc {
+  alut=alut {
+   alut.h
+  }
+  mpg123=mpg123 {
+   mpg123.h
+  }
   openal=openal {
    al.h
    alc.h
@@ -20,14 +780,19 @@ laudio=/Users/wale/laudio CD=. filter="*" {
    efx-presets.h
    efx.h
   }
-  alut=alut {
-   alut.h
-  }
-  mpg123=mpg123 {
-   mpg123.h
-  }
+ }
+ lib=lib {
+  audio.lua
+ }
+ src=src {
+  audio_decoder.c
+  laudio.c
+  audio_decoder.h
+  audio_error.h
+  audio_resource.h
  }
  test=test {
+  tbl.lua
   test.lua
  }
 }
