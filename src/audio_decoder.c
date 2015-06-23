@@ -2,9 +2,9 @@
 #include "audio_resource.h"
 #include "audio_error.h"
 
-#include "openal/al.h"
-#include "alut/alut.h"
-#include "mpg123/mpg123.h"
+#include "AL/al.h"
+#include "AL/alut.h"
+#include "libmpg123/mpg123.h"
 
 #include <assert.h>
 

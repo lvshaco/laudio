@@ -1,9 +1,9 @@
 #include "audio_resource.h"
 #include "audio_decoder.h"
 #include "audio_error.h"
-#include "openal/al.h"
-#include "openal/alc.h"
-#include "alut/alut.h"
+#include "AL/al.h"
+#include "AL/alc.h"
+#include "AL/alut.h"
 #include <assert.h>
 #include <lua.h>
 #include <lauxlib.h>

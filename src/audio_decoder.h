@@ -1,7 +1,7 @@
 #ifndef __audio_decoder_h__
 #define __audio_decoder_h__
 
-#include "openal/al.h"
+#include "AL/al.h"
 
 struct audio_resource;
 struct audio_decoder_ops {
