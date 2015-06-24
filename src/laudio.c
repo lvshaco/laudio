@@ -8,6 +8,8 @@
 #include <lua.h>
 #include <lauxlib.h>
 
+extern const char *asset_path_get();
+
 #define METAAUDIO  "AUDIO*"
 
 struct audio_data {
@@ -56,10 +58,11 @@ static inline struct audio_data *toaudiodata(lua_State *L) {
 static int
 lload(lua_State *L) {
     const char *name = luaL_checkstring(L,1);
-
+    char path[256];
+    snprintf(path, sizeof(path), "%s/%s", asset_path_get(), name);
     struct audio_resource res;
     res.type = AUDIO_RESOURCE_TFILE;
-    res.name = name;
+    res.name = path;
 
     //res.fp = fopen(name, "rb");
     //if (!res.fp) {
